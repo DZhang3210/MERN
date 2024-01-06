@@ -4,10 +4,17 @@ const punycode = require('punycode/');
 const express = require('express')
 const mongoose = require('mongoose')
 const workoutRoutes = require('./routes/workouts')
+const signupRoutes = require('./routes/user')
 
 //express app
 const app = express();
 app.use(express.json());    //parses JSON
+
+//Routes
+app.use('/api/workouts',workoutRoutes)
+
+app.use('/api/user', signupRoutes)
+
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -30,7 +37,7 @@ app.get('/', (req, res) => {
     res.json({mssg: "Welcome to the app"})
 })
 
-//Router for workouts
-app.use('/api/workouts',workoutRoutes)
+//const URL =   "http://localhost:4000"
+
 
 
